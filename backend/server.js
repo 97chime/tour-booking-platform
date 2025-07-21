@@ -1,11 +1,12 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
 
-const express = require('express');
-const cors = require('cors');
+import testRoutes from './routes/testroutes.js';
+import authRoutes from './routes/authRoutes.js';
 
-require('dotenv').config();
-const connectDB = require('./config/db');
-
-const testRoutes = require('./routes/testroutes'); // Import test routes
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -14,8 +15,11 @@ app.use(express.json());
 // Connect to MongoDB
 connectDB();
 
-// Routes
-app.use('/api/test', testRoutes); // Mount route
+// Test Routes
+app.use('/api/test', testRoutes);
+
+// Authentication routes
+app.use('/api/auth', authRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

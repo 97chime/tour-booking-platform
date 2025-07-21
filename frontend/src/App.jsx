@@ -1,25 +1,21 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './App.css';
+import { useState } from 'react';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
-  const [backendStatus, setBackendStatus] = useState('Connecting...');
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/test')
-      .then(res => {
-        if (res.data && res.data.message) {
-          setBackendStatus(res.data.message);
-        } else {
-          setBackendStatus('Backend Error');
-        }
-      })
-      .catch(() => setBackendStatus('Backend Error'));
-  }, []);
+  const [user, setUser] = useState(null);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">{backendStatus}</h1>
+    <div className="p-4">
+      {user ? (
+        <h1 className="text-2xl font-bold text-green-700">Welcome, {user.name}!</h1>
+      ) : (
+        <>
+          <Register />
+          <div className="my-6 border-t pt-6" />
+          <Login onLogin={setUser} />
+        </>
+      )}
     </div>
   );
 }
