@@ -1,9 +1,10 @@
 
 import React from 'react';
+import '../styles/Card.css'; 
 
 const PackageCard = ({ pkg }) => {
   return (
-    <div className="package-card" style={{ border: '1px solid #ddd', padding: '1rem', marginBottom: '1rem' }}>
+    <div className="package-card">
       <h2>{pkg.title}</h2>
       <p><strong>Destination:</strong> {pkg.destination}</p>
       <p><strong>Duration:</strong> {pkg.duration} days</p>
