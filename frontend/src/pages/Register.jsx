@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import API from '../api';
 
-export default function Register() {
+const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
 
@@ -32,3 +32,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default Register;

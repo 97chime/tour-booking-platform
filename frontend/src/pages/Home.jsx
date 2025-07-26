@@ -1,15 +1,17 @@
 
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import PackageCard from '../components/PackageCard.jsx';
+import PackageCard from '../components/PackageCard';
+import API from '../api';
 
 const Home = () => {
   const [packages, setPackages] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/packages')
-      .then(res => setPackages(res.data))
-      .catch(err => console.error('Error fetching packages:', err));
+    async function fetchPackages() {
+      const res = await API.get('/packages'); // Make sure you have this route
+      setPackages(res.data);
+    }
+    fetchPackages();
   }, []);
 
   return (

@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState,useContext  } from 'react';
+import { useNavigate } from 'react-router-dom';
 import API from '../api';
+import { UserContext } from '../context/UserContext';
 
-export default function Login({ onLogin }) {
+const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,8 +17,8 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     try {
       const res = await API.post('/auth/login', form);
-      localStorage.setItem('token', res.data.token);
-      onLogin(res.data.user);
+      login(res.data.user, res.data.token);
+      navigate('/'); // Redirect to home after login
     } catch (err) {
       setMessage(err.response?.data?.message || 'Login failed');
     }
@@ -32,3 +36,5 @@ export default function Login({ onLogin }) {
     </div>
   );
 }
+
+export default Login;
