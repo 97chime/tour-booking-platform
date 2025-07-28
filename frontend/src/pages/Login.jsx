@@ -6,8 +6,10 @@ import { UserContext } from '../context/UserContext';
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
-  const { login } = useContext(UserContext);
+  const { login, user } = useContext(UserContext);
   const navigate = useNavigate();
+
+  if (user) navigate('/profile'); // Redirect if already logged in
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

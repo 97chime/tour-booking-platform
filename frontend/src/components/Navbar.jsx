@@ -11,6 +11,7 @@ const Navbar = () => {
       {user ? (
         <div className="flex gap-4 items-center">
           <span>Hello, {user.name}</span>
+          <Link to="/profile" className="mr-4 hover:underline">Profile</Link>
           <button onClick={logout} className="text-sm text-red-400 hover:underline">Logout</button>
         </div>
       ) : (

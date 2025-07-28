@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import API from '../api';
+import { UserContext } from '../context/UserContext';
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
+  const { user } = useContext(UserContext);
+  
+  if (user) navigate('/profile'); // Redirect if already logged in
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
