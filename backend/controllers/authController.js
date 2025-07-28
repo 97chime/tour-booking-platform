@@ -3,6 +3,14 @@ import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+const generateAccessToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '15m' });
+};
+
+const generateRefreshToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+};
+
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -29,8 +37,17 @@ export const loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: 'Invalid password' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '2h' });
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.json({
+      user: {id: user._id, name: user.name, email: user.email, },
+      accessToken,
+      refreshToken,
+    });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
