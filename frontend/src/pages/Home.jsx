@@ -1,25 +1,25 @@
 
 import React, { useEffect, useState } from 'react';
-import PackageCard from '../components/PackageCard';
+import TourCard from '../components/TourCard.jsx';
 import API from '../api';
 
 const Home = () => {
-  const [packages, setPackages] = useState([]);
+  const [tours, setTours] = useState([]);
 
   useEffect(() => {
-    async function fetchPackages() {
-      const res = await API.get('/packages'); // Make sure you have this route
-      setPackages(res.data);
+    async function fetchTours() {
+      const res = await API.get('/tours'); 
+      setTours(res.data);
     }
-    fetchPackages();
+    fetchTours();
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div>
       <h1>Available Tour Packages</h1>
-      {packages.length > 0 ? (
-        packages.map(pkg => (
-          <PackageCard key={pkg._id} pkg={pkg} />
+      {tours.length > 0 ? (
+        tours.map(tour => (
+          <TourCard key={tour._id} tour={tour} />
         ))
       ) : (
         <p>No packages available.</p>

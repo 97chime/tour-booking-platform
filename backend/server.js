@@ -23,7 +23,7 @@ app.use('/api/test', testRoutes);
 app.use('/api/auth', authRoutes);
 
 // Tour package routes
-app.use('/api/packages', tourRoutes);
+app.use('/api/tours', tourRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
