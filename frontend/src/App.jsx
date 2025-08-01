@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -10,15 +10,19 @@ import Profile from './pages/Profile.jsx';
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-      </Routes>
-    </Router>
+        <Router>
+          <div className="min-h-screen max-w-full bg-gray-50 text-gray-800">
+          <Navbar />
+          <main className="max-w-4xl mx-auto p-4">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            </Routes>
+          </main>
+          </div>
+        </Router>
   );
 };
 

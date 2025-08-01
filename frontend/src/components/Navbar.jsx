@@ -6,8 +6,8 @@ const Navbar = () => {
   const { user, logout } = useContext(UserContext);
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-xl font-bold">TourismApp</Link>
+    <nav className="bg-white shadow-sm px-6 py-3 flex justify-between items-center">
+      <Link to="/" className="font-bold text-xl text-blue-600">Tourism App</Link>
       {user ? (
         <div className="flex gap-4 items-center">
           <span>Hello, {user.name}</span>
