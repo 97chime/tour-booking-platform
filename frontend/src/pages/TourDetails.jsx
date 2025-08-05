@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../api';
+import { UserContext } from '../context/UserContext';
 
 export default function TourDetails() {
   const { id } = useParams();
+  const { user } = useContext(UserContext);
   const [tour, setTour] = useState(null);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -19,6 +22,20 @@ export default function TourDetails() {
     fetchTour();
   }, [id]);
 
+  const handleBooking = async () => {
+    if (!user) {
+      setMessage('You must be logged in to book a tour.');
+      return;
+    }
+
+    try {
+      const res = await API.post('/bookings', { tourId: tour._id });
+      setMessage(res.data.message);
+    } catch (err) {
+      setMessage('Booking failed. Try again later.');
+    }
+  };
+
   if (error) return <p className="text-red-500">{error}</p>;
   if (!tour) return <p>Loading...</p>;
 
@@ -31,9 +48,14 @@ export default function TourDetails() {
       <p className="mb-4 text-gray-700">{tour.description}</p>
       <p className="text-xl font-semibold">Price: RM {tour.price}</p>
 
-      <button className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      <button
+        onClick={handleBooking}
+        className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
         Book Now
       </button>
+
+      {message && <p className="mt-4 text-sm text-green-600">{message}</p>}
     </div>
   );
 }
