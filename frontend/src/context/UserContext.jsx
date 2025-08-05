@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
   
   // Restore user from token (optional)
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       API.get('/auth/profile', {
         headers: { Authorization: `Bearer ${token}` }
