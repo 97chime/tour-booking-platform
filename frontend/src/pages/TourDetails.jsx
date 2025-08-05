@@ -32,7 +32,8 @@ export default function TourDetails() {
       const res = await API.post('/bookings', { tourId: tour._id });
       setMessage(res.data.message);
     } catch (err) {
-      setMessage('Booking failed. Try again later.');
+      console.error(err);
+      setMessage(err.response.data.message || 'Booking failed. Please try again later.');
     }
   };
 
