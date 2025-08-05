@@ -19,14 +19,15 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (userData, token) => {
-    localStorage.setItem('token', token);
+  const login = (userData, accessToken, refreshToken) => {
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
     setUser(userData);
     console.log('User logged in:', userData);
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     setUser(null);
     console.log('User logged out');
   };

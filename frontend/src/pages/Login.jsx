@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await API.post('/auth/login', form);
-      login(res.data.user, res.data.token);
+      login(res.data.user, res.data.accessToken, res.data.refreshToken);
       navigate('/'); // Redirect to home after login
     } catch (err) {
       setMessage(err.response?.data?.message || 'Login failed');
