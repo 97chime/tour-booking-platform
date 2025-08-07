@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
-const Profile = () => {
+export default function Profile() {
   const { user } = useContext(UserContext);
 
   if (!user) return <p className="p-4 text-red-500">You must be logged in to view this page.</p>;
@@ -14,5 +14,3 @@ const Profile = () => {
     </div>
   );
 }
-
-export default Profile;

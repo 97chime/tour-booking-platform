@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TourCard from '../components/TourCard.jsx';
 import API from '../api';
 
-const Home = () => {
+export default function Home() {
   const [tours, setTours] = useState([]);
 
   useEffect(() => {
@@ -27,5 +27,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

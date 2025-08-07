@@ -6,6 +6,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   // Restore user from token (optional)
   useEffect(() => {
@@ -15,7 +16,11 @@ export const UserProvider = ({ children }) => {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => setUser(res.data.user))
-        .catch(() => setUser(null));
+        .catch(() => setUser(null))
+        .finally(() => setLoading(false));
+    }else {
+      setUser(null);
+      setLoading(false);
     }
   }, []);
 
@@ -33,7 +38,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </UserContext.Provider>
   );

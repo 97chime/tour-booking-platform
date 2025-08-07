@@ -7,6 +7,7 @@ import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Profile from './pages/Profile.jsx';
+import MyBookings from './pages/MyBookings.jsx';
 import TourDetails from './pages/TourDetails.jsx';
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+              <Route path="/my-bookings" element={<PrivateRoute><MyBookings /></PrivateRoute>} />
               <Route path="/tours/:id" element={<TourDetails />} />
             </Routes>
           </main>

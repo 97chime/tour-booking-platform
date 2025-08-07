@@ -25,6 +25,20 @@ export const placeBooking = async (req, res) => {
     await booking.save();
     res.status(201).json({ message: 'Booking confirmed', booking });
   } catch (err) {
+    console.error('Error placing booking:', err);
     res.status(500).json({ message: 'Booking failed' });
   }
 };
+
+export const myBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find({ user: req.user._id })
+      .populate('tourpackages', 'title price duration')
+      .sort({ createdAt: -1 });
+
+    res.json(bookings);
+  } catch (err) {
+    console.error('Error fetching bookings:', err);
+    res.status(500).json({ message: 'Failed to load your bookings.' });
+  }
+}

@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import API from '../api';
 import { UserContext } from '../context/UserContext';
 
-const Register = () => {
+export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
   const { user } = useContext(UserContext);
@@ -59,5 +59,3 @@ const Register = () => {
     </div>
   );
 }
-
-export default Register;

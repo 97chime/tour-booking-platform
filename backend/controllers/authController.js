@@ -28,6 +28,7 @@ export const refreshAccessToken = async (req, res) => {
     const newAccessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
     res.json({ accessToken: newAccessToken });
   } catch (err) {
+    console.error('Refresh token error:', err);
     res.status(403).json({ message: 'Token expired or invalid' });
   }
 };
@@ -44,6 +45,7 @@ export const registerUser = async (req, res) => {
 
     res.status(201).json({ message: 'User registered', userId: newUser._id });
   } catch (err) {
+    console.error('Registration error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -70,6 +72,7 @@ export const loginUser = async (req, res) => {
       refreshToken,
     });
   } catch (err) {
+    console.error('Login error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };
