@@ -139,3 +139,7 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Others
+#backend/seedAdmin.js
+# This file is used to seed the admin user in the backend.
